@@ -18,4 +18,6 @@ RUN BUILD_DEPS='autoconf \
 
 # entrypoint causes a "starting container process caused chdir to cwd" error with -w /working/dir
 
+WORKDIR /code
+
 CMD ["/bin/bash"]
