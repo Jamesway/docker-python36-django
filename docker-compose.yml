@@ -1,0 +1,13 @@
+# NOTE - THIS IS A DEV COMPOSE FILE!!!!
+version: "2"
+services:
+  django:
+    image: jamesway/python36-django:latest
+    working_dir: /code
+    volumes:
+      - ./:/code
+    env_file: .env
+    environment:
+      - APP_VERSION=${APP_VERSION}
+    ports:
+      - 8000:8000
