@@ -1,12 +1,12 @@
 # Django with Docker
-Good - use the docker image to run django commands
+Good - use the docker image to run django commands  
 Better - use the docker image to start a project and use docker-compose... as a replacement for python manage.py ...
 
 ## Why
-You don't have to install python, django or worry about virtual environments
+You don't have to install python, django or worry about virtual environments.
 
 ## Usage
-I'll include the docker commands and the docker-compose commands where appropriate
+I'll include the docker commands and the docker-compose commands where appropriate.
 
 ### Start a django project
 ```
@@ -17,7 +17,7 @@ docker run --rm -v $(pwd):/code jamesway/python36-django django-admin startproje
 Clone this repo into your project
 ```
 cd [project_name]
-wget https://github.com/Jamesway/docker-django2-cheatsheet/archive/master.zip -O ./temp.zip \
+wget https://github.com/Jamesway/docker-python36-django/archive/master.zip -O ./temp.zip \
 && unzip -j temp.zip \
 && rm temp.zip
 ```
@@ -28,10 +28,10 @@ wget https://github.com/Jamesway/docker-django2-cheatsheet/archive/master.zip -O
 docker-sync start
 
 # when not needed, eg after exiting runserver, stop and clean docker-sync
+# docker-sync stop may barf output. It doesn't seem to affect anything
 docker-sync stop
 docker-sync clean
 ```
-*Note: "docker-sync clean" may barf output. It doesn't seem to affect anything*
 
 ### Start an app
 **NOTE: app_names can't have dashes (-), underscores only**
@@ -44,7 +44,7 @@ docker run --rm -v $(pwd):/code jamesway/python36-django python manage.py starta
 
 ### settings.py
 
-- **ALLOWED_HOSTS** Before we runserver, we need to add the docker machine ip to ALLOWED_HOSTS
+- **ALLOWED_HOSTS**: before we runserver, we need to add the docker machine ip to ALLOWED_HOSTS
 ```
 docker-machine ip
 
@@ -52,7 +52,7 @@ docker-machine ip
 # eg: ALLOWED_HOSTS = ['192.168.99.100']
 ```
 
-- **INSTALLED_APPS** add [app_name] to the list
+- **INSTALLED_APPS**: add [app_name] to the list
 
 
 ### runserver
@@ -65,7 +65,7 @@ docker-compose run --rm django runserver 0:8000
 docker run --rm -p 8000:8000 -itv $(pwd):/code jamesway/python36-django python manage.py runserver 0:8000
 ```
 
-Open a browser to your http://[docker ip]:8000, eg http://192.168.99.100:8000
+Open a browser to your http://[docker ip]:8000, eg http://192.168.99.100:8000  
 You should see the default django page
 
 ## Misc
@@ -106,8 +106,8 @@ def index(request):
 ### urls.py
 Add the route for your view
 ```
-...
 # note: python 1 used url() method, django 2 uses path for string paths or re_path for regexes
+...
 path('index/', views.index, name='index1'),
 re_path(r'^index$', views.index, name='index2'),
 path('admin/', admin.site.urls),
