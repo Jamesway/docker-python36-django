@@ -1,12 +1,20 @@
-# Django with Docker.
+# Django with Docker
+Good - use the docker image to run django commands
+Better - use the docker image to start a project and use docker-compose... as a replacement for python manage.py ...
+
+## Why
+You don't have to install python, django or worry about virtual environments
 
 ## Usage
+I'll include the docker commands and the docker-compose commands where appropriate
+
 ### Start a django project
 ```
 docker run --rm -v $(pwd):/code jamesway/python36-django django-admin startproject [project_name]
 ```
 
-### Clone this repo into your project
+### Get the docker-compose files
+Clone this repo into your project
 ```
 cd [project_name]
 wget https://github.com/Jamesway/docker-django2-cheatsheet/archive/master.zip -O ./temp.zip \
@@ -28,9 +36,9 @@ docker-sync clean
 ### Start an app
 **NOTE: app_names can't have dashes (-), underscores only**
 ```
-docker-compose run --rm django python startapp [app_name]
+docker-compose run --rm django startapp [app_name]
 
-# or without compose
+# without compose
 docker run --rm -v $(pwd):/code jamesway/python36-django python manage.py startapp [app_name]
 ```
 
@@ -40,24 +48,25 @@ docker run --rm -v $(pwd):/code jamesway/python36-django python manage.py starta
 ```
 docker-machine ip
 
+# ALLOWED_HOSTS expects a string*
 # eg: ALLOWED_HOSTS = ['192.168.99.100']
 ```
-*Note: ALLOWED_HOSTS expects a string*
 
-- **INSTALLED_APPS** add your app_name to the list
+- **INSTALLED_APPS** add [app_name] to the list
 
 
 ### runserver
 ```
-# 0:8000 listen on all IPs - since the server is in the container, localhost/127.0.0.1 doesn't map
-docker-compose run --rm django manage.py runserver 0:8000
+# 0:8000 -> listen on all IPs
+# since the server is in the container, localhost/127.0.0.1 doesn't map
+docker-compose run --rm django runserver 0:8000
 
 #or without compose - note the -p and -itv flags
-docker run --rm -p 8000:8000 -itv $(pwd):/code jamesway/python36-django python manage.py startapp [app_name]
+docker run --rm -p 8000:8000 -itv $(pwd):/code jamesway/python36-django python manage.py runserver 0:8000
 ```
 
-Open a browser to your docker ip:8000, eg 192.168.99.100:8000
-You should see the django page
+Open a browser to your http://[docker ip]:8000, eg http://192.168.99.100:8000
+You should see the default django page
 
 ## Misc
 

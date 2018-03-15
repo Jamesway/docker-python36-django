@@ -11,3 +11,4 @@ services:
       - APP_VERSION=${APP_VERSION}
     ports:
       - 8000:8000
+    entrypoint: ["python3", "manage.py"]
