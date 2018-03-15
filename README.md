@@ -106,7 +106,7 @@ def index(request):
 ### urls.py
 Add the route for your view
 ```
-# note: python 1 used url() method, django 2 uses path for string paths or re_path for regexes
+# django 1 used the url() method, django 2 uses path() for string paths or re_path() for regexes
 ...
 path('index/', views.index, name='index1'),
 re_path(r'^index$', views.index, name='index2'),
