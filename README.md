@@ -59,9 +59,13 @@ docker-machine ip
 ```
 # 0:8000 -> listen on all IPs
 # since the server is in the container, localhost/127.0.0.1 doesn't map
-docker-compose run --rm django runserver 0:8000
+# also docker compose run DOES NOT enable ports by default - it sucks
+docker-compose run --rm -p 8000:8000 django runserver 0:8000
 
-#or without compose - note the -p and -itv flags
+# or using the --service-porst flag
+docker-compose run --rm --service-ports django runserver 0:8000
+
+# or without compose - note the -p and -itv flags
 docker run --rm -p 8000:8000 -itv $(pwd):/code jamesway/python36-django python manage.py runserver 0:8000
 ```
 
