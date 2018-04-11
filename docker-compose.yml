@@ -11,7 +11,7 @@ services:
       - APP_VERSION=${APP_VERSION}
     ports:
       - 8000:8000
-    entrypoint: ["python", "manage.py"]
+    entrypoint: ["python3", "manage.py"]
   pipenv:
     image: jamesway/python36-pipenv:latest
     working_dir: /code
